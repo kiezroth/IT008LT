@@ -47,8 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="Entity.cs" />
     <Compile Include="Monster.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="FireBall.cs" />
     <Compile Include="myGame.cs">
       <SubType>Form</SubType>
     </Compile>

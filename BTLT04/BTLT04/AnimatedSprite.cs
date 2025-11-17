@@ -21,11 +21,13 @@ namespace BTLT04
         public AnimatedSprite(string path, int frameW, int frameH, int spriteOnRow)
         {
             Sheet = new Bitmap(path);
+
             FrameWidth = frameW;
             FrameHeight = frameH;
             SpriteOnRow = spriteOnRow;
             Rows = Sheet.Height / FrameHeight;
             FrameCount = SpriteOnRow * Rows;
+
         }
         public void Draw(Graphics g, float x, float y, int widthScale, int heightScale)
             {
@@ -35,7 +37,6 @@ namespace BTLT04
                 Rectangle dest = new Rectangle((int)x,(int)y,widthScale,heightScale);
                 g.DrawImage(Sheet, dest, src, GraphicsUnit.Pixel);
             }
-
         public void NextFrame()
         {
             delayCounter++;
