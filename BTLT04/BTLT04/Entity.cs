@@ -15,6 +15,7 @@ namespace BTLT04
         public int Width { get; set; }
         public int Height { get; set; }
         public bool IsDestroyed { get; set; } = false;
+        public bool isVerticle { get; set; } = false;
         public Entity(float x = 0, float y = 0, int width = 0, int height = 0)
         {
             X = x;
@@ -31,6 +32,8 @@ namespace BTLT04
         public abstract void Render(Graphics g);
         public RectangleF GetBounds()
         {
+            if (isVerticle)
+                return new RectangleF(X, Y, Height,Width);
             return new RectangleF(X, Y, Width, Height);
         }
         public bool IsCollidingWith(Entity other)               // Kiểm tra đụng độ

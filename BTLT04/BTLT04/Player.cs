@@ -23,15 +23,15 @@ namespace BTLT04
             RunLeft,
             RunRight
         }
-        Dictionary<PlayerState, AnimatedSprite> Sprites;
+        public Dictionary<PlayerState, AnimatedSprite> Sprites;
         public float Speed = 5;
-        public int Facing = 1; // 1: phải, -1: trái
         public float shootCooldown = 1000f; // 1000 ms = 1 giây
         public float shootTimer = 0f;
 
         public Player(float x, float y)
         {
-            Width = Height = 96;
+            Width = 64;
+            Height = 96;
             X = x;
             Y = y;
             Sprites = new Dictionary<PlayerState, AnimatedSprite>
@@ -84,7 +84,7 @@ namespace BTLT04
             shootTimer -= 16;
             if (Input.Left)
             {
-                X -= Speed; Facing = -1;
+                X -= Speed;
                 if (currentSprite != Sprites[PlayerState.RunLeft])
                     currentSprite = Sprites[PlayerState.RunLeft];
                 currentSprite.NextFrame();
@@ -92,7 +92,7 @@ namespace BTLT04
             else
             if (Input.Right)
             {
-                X += Speed; Facing = 1; currentSprite.NextFrame();
+                X += Speed;currentSprite.NextFrame();
                 if (currentSprite != Sprites[PlayerState.RunRight])
                     currentSprite = Sprites[PlayerState.RunRight];
                 currentSprite.NextFrame();
@@ -133,28 +133,36 @@ namespace BTLT04
 
         public override void Render(Graphics g)
         {
-            currentSprite.Draw(g, X, Y, Width, Height);
+
+            currentSprite.Draw(g, X - 16, Y, 96, 96);
         }
 
         public FireBall Shoot(myGame form)
         {
-            float startX = X + Width / 2;
-            float startY = Y + Height / 2;
+            float startX = X;
+            float startY = Y;
             PlayerDirection dir;
 
             switch (currentSprite)
             {
                 case var s when s == Sprites[PlayerState.RunLeft] || s == Sprites[PlayerState.IdleLeft]:
+                    startX -= Width;
+                    startY += Height/4;
                     dir = PlayerDirection.Left; break;
                 case var s when s == Sprites[PlayerState.RunRight] || s == Sprites[PlayerState.IdleRight]:
+                    startX += Width / 2;
+                    startY += Height/4;
                     dir = PlayerDirection.Right; break;
                 case var s when s == Sprites[PlayerState.RunUp] || s == Sprites[PlayerState.IdleUp]:
+                    startY -= Height / 2;
                     dir = PlayerDirection.Up; break;
                 default:
-                    dir = PlayerDirection.Down; break;
+                    dir = PlayerDirection.Down;
+                    startY += Height / 2;
+                    break;
             }
             shootTimer = shootCooldown;
-            return new FireBall(startX, startY, dir, form);
+            return new FireBall(startX,startY, dir, form);
         }
 
     }

@@ -13,13 +13,14 @@ namespace BTLT04
     public partial class myGame : Form
     {
         WorldMap world;
+
         public myGame()
         {
             InitializeComponent();
             world = new WorldMap(ClientSize.Width, ClientSize.Height, this);
             this.Resize += myGame_Resize;
             this.DoubleBuffered = true;
-            this.KeyPreview = true; // quan trọng
+            this.KeyPreview = true;
             this.KeyDown += Input.OnKeyDown;
             this.KeyUp += Input.OnKeyUp;
             timer.Start();
@@ -39,6 +40,9 @@ namespace BTLT04
         {
             world.Width = ClientSize.Width;
             world.Height = ClientSize.Height;
+            world.monsterManage.worldH = ClientSize.Height;
+            world.monsterManage.worldW = ClientSize.Width;
+
         }
     }
 }

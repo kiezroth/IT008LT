@@ -16,7 +16,7 @@ namespace BTLT04
         public int FrameDelay = 10;
         public int SpriteOnRow;
         public int Rows;
-        private int delayCounter = 0;
+        public int delayCounter = 0;
 
         public AnimatedSprite(string path, int frameW, int frameH, int spriteOnRow)
         {
